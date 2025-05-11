@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>리스닝 파일 동적 선택</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h1>🎧 리스닝 파일 개수 선택</h1>
+    <p>숫자를 선택하면 해당 개수만큼 MP3 파일 선택 버튼이 나타납니다.</p>
+    <label for="fileCount">파일 개수 선택: </label>
+    <select id="fileCount" onchange="generateInputs()">
+        <option value="">▼</option>
+        <option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+<option value='6'>6</option>
+<option value='7'>7</option>
+<option value='8'>8</option>
+<option value='9'>9</option>
+<option value='10'>10</option>
+    </select>
+
+    <div id="fileInputs" style="margin-top: 20px;"></div>
+
+    <script>
+        function generateInputs() {
+            const count = parseInt(document.getElementById('fileCount').value);
+            const container = document.getElementById('fileInputs');
+            container.innerHTML = '';
+
+            if (!isNaN(count)) {
+                for (let i = 1; i <= count; i++) {
+                    const label = document.createElement('p');
+                    label.innerHTML = `<b>리스닝 파일 ${i}</b><br>`;
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'audio/mpeg';
+                    input.id = 'file' + i;
+                    label.appendChild(input);
+                    container.appendChild(label);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

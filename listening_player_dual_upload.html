@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>리스닝 + 고시장 ASMR 플레이어</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h1>🎧 리스닝 + 고시장 ASMR 파일 선택 재생기</h1>
+    <p>각 MP3 파일을 직접 선택해서 동시에 재생하세요.</p>
+    <hr>
+
+    <h3>🎧 고시장 ASMR 파일 선택</h3>
+    <input type="file" id="asmrInput" accept="audio/mpeg"><br><br>
+    <div id="asmrPlayer"></div>
+
+    <h3>🎧 리스닝 파일 선택</h3>
+    <input type="file" id="listeningInput" accept="audio/mpeg" multiple><br><br>
+    <div id="listeningPlayers"></div>
+
+    <script>
+        document.getElementById('asmrInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const playerDiv = document.getElementById('asmrPlayer');
+            playerDiv.innerHTML = '';
+            if (file) {
+                const url = URL.createObjectURL(file);
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.src = url;
+                const label = document.createElement('p');
+                label.innerHTML = `<b>${file.name}</b>`;
+                label.appendChild(audio);
+                playerDiv.appendChild(label);
+            }
+        });
+
+        document.getElementById('listeningInput').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const playerList = document.getElementById('listeningPlayers');
+            playerList.innerHTML = '';
+            for (const file of files) {
+                const url = URL.createObjectURL(file);
+                const player = document.createElement('audio');
+                player.controls = true;
+                player.src = url;
+                const label = document.createElement('p');
+                label.innerHTML = `<b>${file.name}</b>`;
+                label.appendChild(player);
+                playerList.appendChild(label);
+            }
+        });
+    </script>
+</body>
+</html>

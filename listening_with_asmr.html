@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>고사장 ASMR + 리스닝 플레이어</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h1>🎧 고사장 ASMR + 리스닝 MP3 선택 플레이어</h1>
+    <p>고사장 ASMR은 아래에서 자동 재생되고, 리스닝 파일은 선택해서 재생하세요.</p>
+    <hr>
+
+    <h3>🎧 고사장 ASMR (자동 포함)</h3>
+    <audio controls autoplay loop>
+        <source src="gosajang_asmr.mp3" type="audio/mpeg">
+        이 브라우저는 MP3 재생을 지원하지 않습니다.
+    </audio>
+
+    <h3>🎧 리스닝 파일 선택</h3>
+    <input type="file" id="listeningInput" accept="audio/mpeg" multiple><br><br>
+    <div id="listeningPlayers"></div>
+
+    <script>
+        document.getElementById('listeningInput').addEventListener('change', function(event) {{
+            const files = event.target.files;
+            const playerList = document.getElementById('listeningPlayers');
+            playerList.innerHTML = '';
+            for (const file of files) {{
+                const url = URL.createObjectURL(file);
+                const player = document.createElement('audio');
+                player.controls = true;
+                player.src = url;
+                const label = document.createElement('p');
+                label.innerHTML = `<b>${{file.name}}</b>`;
+                label.appendChild(player);
+                playerList.appendChild(label);
+            }}
+        }});
+    </script>
+</body>
+</html>
